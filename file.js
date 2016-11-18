@@ -27,24 +27,23 @@ $(document).ready(function() {
 		
 
 		var self = this;
-	
-	$.ajax({
-		type: "GET",
-		url: "https://api.spotify.com/v1/search?q="+ inputs +"&type=track&limit=12",
-		success: function (response){
-			console.log(response)
-			
-		},
-		error: function(error){
-			console.log(error + "error")
-		},
-	});
-}
+
+		$.ajax({
+			type: "GET",
+			url: "https://api.spotify.com/v1/search?q="+ inputs +"&type=track&limit=12",
+			success: printResults(response),
+			// console.log(response)
+
+			error: function(error){
+				console.log(error + "error")
+			},
+		});
+	}
 
 
-function songMatcher(){
+	function songMatcher(){
 		console.log("visca songMatcher!")
-	
+
 		event.preventDefault();
 		var inputs = $("input").val();
 		console.log(inputs)
@@ -53,14 +52,17 @@ function songMatcher(){
 		newtrack.render();
 		clearSong ();
 
+	}
 
-	
+	function printResults(response){
+		console.log(response)
+		// $(".print_tracks").text(response.tracks.items)
+		
+	}
 
-}
+	function clearSong () {
+		$('form').empty();
 
-function clearSong () {
-	$('form').empty();
-
-}
+	}
 
 });
